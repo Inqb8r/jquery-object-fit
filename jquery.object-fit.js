@@ -3,12 +3,13 @@
 //
 // Originally by Simon Schmid https://github.com/schmidsi
 // Re-worked by Steve Workman https://github.com/steveworkman
+// Modified by xax https://github.com/xax
 // Polyfill for Object-fit property in CSS3 Images http://www.w3.org/TR/2012/CR-css3-images-20120417/#object-fit
 //
 // usage:
 // ------
 // ```
-// $('.selector').objectFit({type: 'contain', hideOverflow: true});
+// $('.selector').objectFit({type: 'contain', hideOverflow: true, parentElem: $('#someElement')});
 // ```
 //
 // implemented types:
