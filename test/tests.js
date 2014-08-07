@@ -31,4 +31,7 @@ test("Cover tests", function() {
 
 	equal($('#container8 img').width(), secondContainer.width, "Container 8 Width is correct");
 	equal($('#container8 img').height(), Math.ceil(secondContainer.height*smallImage.ratio), "Container 8 height is correct");
+
+	equal($('#container9 img').height(), firstContainer.height, "Container 9 Height is correct");
+	equal($('#container9 img').width(), Math.ceil(firstContainer.height*smallImage.ratio), "Container 9 Width is correct");
 });

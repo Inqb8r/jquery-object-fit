@@ -22,7 +22,7 @@
 	var testForObjectFit = function() {
 		// Borrowed from Modernizr
     	var mStyle = document.createElement('modernizr').style,
-		prop = 'objectFit', 
+		prop = 'objectFit',
 		omPrefixes = 'Webkit Moz O ms',
 		cssomPrefixes = omPrefixes.split(' '),
 		ucProp  = prop.charAt(0).toUpperCase() + prop.slice(1),
@@ -36,12 +36,12 @@
 	    }
 	    return false;
 	};
-	
+
 	var doObjectFit = function(type) {
 		// default type is "contain"
 		var type = type || 'contain';
 		var supportsObjectFit = testForObjectFit();
-		
+
 		return this.each(function() {
 			if (supportsObjectFit) {
 				$(this).css('object-fit', type);
@@ -49,21 +49,22 @@
 			else {
 				doResize(this, type);
 			}
-			
+
 		});
 	};
 
 	var doResize = function(elem, params) {
 		var type = typeof(params) === 'string' ? params : params.type,
-			hideOverflow = params.hideOverflow === undefined ? true : params.hideOverflow;
+			hideOverflow = params.hideOverflow === undefined ? true : params.hideOverflow,
+			parentElem = params.parentElem === undefined ? null : params.parentElem;
 
 		// Cache the resize request
-		toResize.push({elem: elem, params: {type:type, hideOverflow: hideOverflow}});
+		toResize.push({elem: elem, params: {type:type, hideOverflow: hideOverflow, parentElem: parentElem}});
 		// Find the first block level element, as we need the containing element, not just the next one up
-		function findParentRatio(jqObject) {
-			var p = jqObject.parent(),
+		function findParentRatio(jqObject, considerSelf) {
+			var p = (!!considerSelf? jqObject: jqObject.parent()),
 				displayType = p.css('display');
-			
+
 			if (displayType == 'block' || displayType == '-webkit-box' && p.width() > 0) {
 				return { obj: p, width: p.width(), height: p.height(), ratio: (p.width() / p.height()) };
 			} else {
@@ -73,7 +74,9 @@
 
 		var $this = $(elem),
 				ratio,
-				parent = findParentRatio($this), // The parent element may not have any width or height, so find one that does
+				parent = !!parentElem?
+						findParentRatio($(parentElem), true):
+						findParentRatio($this), // The parent element may not have any width or height, so find one that does
 				pic_real_width,
 				pic_real_height;
 

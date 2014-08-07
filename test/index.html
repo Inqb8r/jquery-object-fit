@@ -17,23 +17,29 @@
 			margin: 10px;
 		}
 
-		#container1, #container3, #container5, #container7 {
+		.subcontainer {
+			background-color: blue;
+			margin: 0;
+		}
+
+		#container1, #container3, #container5, #container7, #container9 {
 			height: 200px;
 			width: 200px;
 		}
 
-		#container2, #container4, #container6, #container8 {
+		#container2, #container4, #container6, #container8, #container9bis {
 			height: 100px;
 			width: 200px;
 		}
 
-		
+
 	</style>
 
 	<script>
 		$(function() {
 			$('.contain').objectFit('contain');
 			$('.cover').objectFit({ type: 'cover', hideOverflow: true});
+			$('#coverrel9').objectFit({ type: 'cover', hideOverflow: true, parentElem: $('#container9')});
 		});
 	</script>
 </head>
@@ -77,6 +83,13 @@
 	<h3>Container 8, small image should stretch to cover and overflow horizontally, but more so than the last</h3>
 	<div id="container8" class="container">
 			<img class="cover" src="smallimage.jpg" alt="ratio test">
+	</div>
+
+	<h3>Container 9, large image should cover blue subcontainer relative to red container</h3>
+	<div id="container9" class="container">
+		<div id="container9bis" class="subcontainer">
+			<img id="coverrel9" src="smallimage.jpg" alt="ratio test">
+		</div>
 	</div>
 
 </body>
